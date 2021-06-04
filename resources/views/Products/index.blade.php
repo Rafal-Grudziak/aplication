@@ -10,20 +10,20 @@
                             <tr>
                             <th scope="col">Id</th>
                             <th scope="col">Name</th>
-                            <th scope="col">Surname</th>
-                            <th scope="col">E-mail</th>
-                            <th scope="col">Phone number</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Price</th>
                             <th scope="col">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($users as $user)
+                        @foreach($products as $product)
                             <tr>
                             <th scope="row">{{$user->id}}</th>
-                            <td>{{$user->name}}</td>
-                            <td>{{$user->surname}}</td>
-                            <td>{{$user->email}}</td>
-                            <td>{{$user->phone_number}}</td>
+                            <td>{{$product->name}}</td>
+                            <td>{{$product->description}}</td>
+                            <td>{{$product->amount}}</td>
+                            <td>{{$product->price}}</td>
                             <td>
                             <button class="btn btn-danger btn-sm delete" data-id="{{$user->id}}">X</button>
                             </td>
@@ -31,14 +31,14 @@
                         @endforeach
                         </tbody>
                     </table>
-                    {{ $users->links() }}
+                    {{ $products->links() }}
         </div>
     </div>
 </div>
 @endsection
 @push('javascript')
 <script>
-const deleteurl = "{{ url('users') }}/";
+const deleteurl = "{{ url('products') }}/";
 </script>
 @endpush
 @push('js-files')
