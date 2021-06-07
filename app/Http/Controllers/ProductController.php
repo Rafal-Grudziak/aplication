@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Exception;
+use Illuminate\Http\JsonResponse;
 
 class ProductController extends Controller 
 {
@@ -22,66 +26,89 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create() : View
     {
-        //
+        return view('Products.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request) : RedirectResponse
     {
-        //
+        $product = new Product($request->all());
+        $product->save();
+        return redirect(route('products.index'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param  Product  $product
+     * @return View
      */
-    public function show(Product $product)
+    public function show(Product $product) : View
     {
-        //
+        return view('Products.show',[
+            'product' => $product
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param $product
+     * @return View
      */
-    public function edit(Product $product)
+    public function edit(Product $product) : View
     {
-        //
+        return view('Products.edit',[
+            'product' => $product
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @param  Product  $product
+     * @return RedirectResponse
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Product $product) : RedirectResponse
     {
-        //
+        $product->fill($request->all());
+        $product->save();
+        return redirect(route('products.index'));
     }
 
-    /**
+        /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param  int  $id
+     * @return JsonResponse
+     * @throws /Exception
      */
-    public function destroy(Product $product)
+    public function destroy(Product $product) : JsonResponse
     {
-        //
+        try
+        {
+            $product->delete();
+            return response() -> json([
+                'status' => 'success'
+            ]);
+        }
+        catch(Exception $e)
+        {
+            return response() -> json([
+                'status' => 'error',
+                'message' => 'Error occured!'
+            ])->setStatusCode(500);
+        }
+        $product->delete();
     }
 }
