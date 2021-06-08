@@ -61,8 +61,6 @@
                     </div>
                     <div class="row sorting mb-5 mt-5">
                       <div class="col-12">
-                        <a class="btn btn-light">
-                          <i class="fas fa-arrow-up mr-2"></i> Back to top</a>
                         <div class="btn-group float-md-right ml-3">
                           <button type="button" class="btn btn-lg btn-light"> <span class="fa fa-arrow-left"></span> </button>
                           <button type="button" class="btn btn-lg btn-light"> <span class="fa fa-arrow-right"></span> </button>

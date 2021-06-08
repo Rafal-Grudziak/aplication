@@ -4,23 +4,23 @@
 <div class="container">
                 <div class="row">
                     <div class="col-6">
-                    <h2>Products list</h2>
+                    <h2>{{ __('shop.product.index_title') }}</h2>
                     </div>
                     <div class="col-6">
                     <a href="{{ route('products.create') }}" class="float-right">
-                    <button type="button" class="btn btn-primary">Create</button>
+                    <button type="button" class="btn btn-primary">{{ __('shop.button.add') }}</button>
                     </a>
                     </div>
                 </div>
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Actions</th>
+                            <th scope="col">#</th>
+                            <th scope="col">{{ __('shop.product.fields.name') }}</th>
+                            <th scope="col">{{ __('shop.product.fields.description') }}</th>
+                            <th scope="col">{{ __('shop.product.fields.amount') }}</th>
+                            <th scope="col">{{ __('shop.product.fields.price') }}</th>
+                            <th scope="col">{{ __('shop.columns.actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
