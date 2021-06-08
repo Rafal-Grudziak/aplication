@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use App\Http\Requests\UpsertProductRequest;
 
 class ProductController extends Controller 
 {
@@ -36,12 +37,12 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param  UpsertProductRequest  $request
      * @return RedirectResponse
      */
-    public function store(Request $request) : RedirectResponse
+    public function store(UpsertProductRequest $request) : RedirectResponse
     {
-        $product = new Product($request->all());
+        $product = new Product($request->validated());
         if($request->hasFile('image'))
         {
             $product->image_path = $request->file('image')->store('products');
@@ -83,9 +84,9 @@ class ProductController extends Controller
      * @param  Product  $product
      * @return RedirectResponse
      */
-    public function update(Request $request, Product $product) : RedirectResponse
+    public function update(UpsertProductRequest $request, Product $product) : RedirectResponse
     {
-        $product->fill($request->all());
+        $product->fill($request->validated());
         if($request->hasFile('image'))
         {
             $product->image_path = $request->file('image')->store('products');
