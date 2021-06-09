@@ -1,5 +1,13 @@
 <?php
 return[
+    'welcome' => [
+        'number_of_products' => 'Liczba produktów',
+        'categories' => 'kategorie',
+        'price' => 'cena',
+        'update_results' => 'filtruj',
+        'sort' => 'Sortuj',
+        'view' => 'Wyświetl'
+    ],
   'columns' => [
       'actions' => 'Akcje'
   ],
