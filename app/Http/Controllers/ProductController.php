@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -31,7 +32,9 @@ class ProductController extends Controller
      */
     public function create() : View
     {
-        return view('Products.create');
+        return view('Products.create',[
+            'categories' => ProductCategory::all()
+        ]);
     }
 
     /**
@@ -60,7 +63,8 @@ class ProductController extends Controller
     public function show(Product $product) : View
     {
         return view('Products.show',[
-            'product' => $product
+            'product' => $product,
+            'categories' => ProductCategory::all()
         ]);
     }
 
@@ -73,7 +77,8 @@ class ProductController extends Controller
     public function edit(Product $product) : View
     {
         return view('Products.edit',[
-            'product' => $product
+            'product' => $product,
+            'categories' => ProductCategory::all()
         ]);
     }
 

@@ -68,6 +68,24 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="price" class="col-md-4 col-form-label text-md-right">{{ __('shop.product.fields.category') }}</label>
+
+                            <div class="col-md-6">
+                                <select id="price" type="number" step="0.01" min="0" class="form-control @error('category') is-invalid @enderror" name="category_id" value="{{ old('category') }}">
+                                    <option value="">Brak</option>
+                                    @foreach($categories as $category)
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('category')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="image" class="col-md-4 col-form-label text-md-right">{{ __('shop.product.fields.image') }}</label>
 
                             <div class="col-md-6">

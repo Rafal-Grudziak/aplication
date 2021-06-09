@@ -8,6 +8,14 @@
                 <div class="card-header">{{ __('shop.product.show_title') }}</div>
 
                 <div class="card-body">
+
+                    @if(!is_null($product->image_path))
+                        <div class="form-group row justify-content-center">
+                            <div class="col-md-6">
+                                <img src="{{asset('storage/'.$product->image_path)}}" class="img-fluid mx-auto d-block" alt="Card image cap">
+                            </div>
+                        </div>
+                    @endif
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('shop.product.fields.name') }}</label>
 
@@ -40,6 +48,19 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="category" class="col-md-4 col-form-label text-md-right">{{ __('shop.product.fields.category') }}</label>
+
+                            <div class="col-md-6">
+                                @if($product->hasCategory())
+                                <input id="category" type="text" class="form-control @error('category') is-invalid @enderror" name="category" value="{{ $product->category->name }}" disabled>
+                                @else
+                                <input id="category" type="text" class="form-control @error('category') is-invalid @enderror" name="category" value="Brak" disabled>
+                                @endif
+                            </div>
+                        </div>
+
+                        
                 </div>
             </div>
         </div>
