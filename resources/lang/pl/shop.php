@@ -8,6 +8,21 @@ return[
         'sort' => 'Sortuj',
         'view' => 'Wyświetl'
     ],
+    'item' => [
+        'available_pieces' => 'Dostępnych sztuk',
+        'add_to_cart' => 'Dodaj do koszyka'
+    ],
+    'basket' => [
+        'basket' => 'Koszyk',
+        'product' => 'Produkt',
+        'price' => 'Cena',
+        'amount' => 'Ilość',
+        'subtotal' => 'Kwota',
+        'delete' => 'Usuń',
+        'continue_shopping' => 'Kontynuuj zakupy',
+        'pay' => 'Zapłać',
+        'total' => 'Razem'
+    ],
   'columns' => [
       'actions' => 'Akcje'
   ],

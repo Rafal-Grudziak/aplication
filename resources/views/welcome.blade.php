@@ -48,7 +48,7 @@
                           </div>
                           <div class="card-body text-center">
                             <h4 class="card-title">
-                              <a href="product.html" class=" font-weight-bold text-dark text-uppercase small"> {{$product -> name}}</a>
+                              <a href="{{ route('item', $product->id) }}" class=" font-weight-bold text-dark text-uppercase small"> {{$product -> name}}</a>
                             </h4>
                             <h5 class="card-price small">
                               <i>{{$product -> price}} PLN</i>
@@ -66,7 +66,7 @@
                           <button type="button" class="btn btn-lg btn-light"> <span class="fa fa-arrow-right"></span> </button>
                         </div>
                         <div class="dropdown float-md-right">
-                          <label class="mr-2">View:</label>
+                          <label class="mr-2">{{__('shop.welcome.view')}}:</label>
                           <a class="btn btn-light btn-lg dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">12 <span class="caret"></span></a>
                           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#">12</a>

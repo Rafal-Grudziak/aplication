@@ -21,13 +21,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/', [WelcomeController::class, 'index']);
+Route::get('/', [WelcomeController::class, 'index'])->name('index');
+Route::get('item/{product}', [WelcomeController::class, 'show'])->name('item');
+Route::post('item/', [WelcomeController::class, 'addToBasket'])->name('item.add_to_basket')->middleware('auth');
+Route::get('basket', [WelcomeController::class, 'showBasket'])->name('basket')->middleware('auth');
+Route::delete('basket/{basket}', [WelcomeController::class, 'destroy'])->name('basket.destroy')->middleware('auth');
+
 
 Route::get('products', [ProductController::class, 'index'])->name('products.index')->middleware('auth');
 Route::get('/products/create', [ProductController::class, 'create'])->name('products.create')->middleware('auth');
 Route::post('products', [ProductController::class, 'store'])->name('products.store')->middleware('auth');
 Route::get('products/{product}', [ProductController::class, 'edit'])->name('products.edit')->middleware('auth');
-Route::post('prodcts/{product}', [ProductController::class, 'update'])->name('products.update')->middleware('auth');
+Route::post('products/{product}', [ProductController::class, 'update'])->name('products.update')->middleware('auth');
 Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy')->middleware('auth');
 Route::get('products/show/{product}', [ProductController::class, 'show'])->name('products.show')->middleware('auth');
 
