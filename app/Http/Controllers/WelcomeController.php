@@ -112,4 +112,27 @@ class WelcomeController extends Controller
         $basket->delete();
     }
 
+    /**
+     * Display a listing of the resource.
+     * @param  Request  $request
+     * @return View
+     */
+    public function indexFIlter(Request $request) : View
+    {   
+        if(!is_null($request->categories))
+        {
+            return view('welcome',[
+                'products' => Product::whereIn('category_id', $request->categories)->paginate(10),
+                'categories' => ProductCategory::all()
+            ]);
+        }
+        else
+        {
+            return view('welcome',[
+                'products' => Product::paginate(10),
+                'categories' => ProductCategory::all()
+            ]);
+        }
+        
+    }
 }

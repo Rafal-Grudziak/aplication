@@ -8,16 +8,7 @@
                   <div class="container-fluid">
                     <div class="row   mb-5">
                       <div class="col-12">
-                        <div class="dropdown text-md-left text-center float-md-left mb-3 mt-3 mt-md-0 mb-md-0">
-                          <label class="mr-2">{{__('shop.welcome.sort')}}:</label>
-                          <a class="btn btn-lg btn-light dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Relevance <span class="caret"></span></a>
-                          <div class="dropdown-menu" aria-labelledby="navbarDropdown" x-placement="bottom-start" style="position: absolute; transform: translate3d(71px, 48px, 0px); top: 0px; left: 0px; will-change: transform;">
-                            <a class="dropdown-item" href="#">Relevance</a>
-                            <a class="dropdown-item" href="#">Price Descending</a>
-                            <a class="dropdown-item" href="#">Price Ascending</a>
-                            <a class="dropdown-item" href="#">Best Selling</a>
-                          </div>
-                        </div>
+                        
                         <div class="btn-group float-md-right ml-3">
                           <button type="button" class="btn btn-lg btn-light"> <span class="fa fa-arrow-left"></span> </button>
                           <button type="button" class="btn btn-lg btn-light"> <span class="fa fa-arrow-right"></span> </button>
@@ -65,16 +56,6 @@
                           <button type="button" class="btn btn-lg btn-light"> <span class="fa fa-arrow-left"></span> </button>
                           <button type="button" class="btn btn-lg btn-light"> <span class="fa fa-arrow-right"></span> </button>
                         </div>
-                        <div class="dropdown float-md-right">
-                          <label class="mr-2">{{__('shop.welcome.view')}}:</label>
-                          <a class="btn btn-light btn-lg dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">12 <span class="caret"></span></a>
-                          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">12</a>
-                            <a class="dropdown-item" href="#">24</a>
-                            <a class="dropdown-item" href="#">48</a>
-                            <a class="dropdown-item" href="#">96</a>
-                          </div>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -82,29 +63,22 @@
                 <div class="col-md-4 order-md-1 col-lg-3 sidebar-filter">
                   <h3 class="mt-0 mb-5">{{__('shop.welcome.number_of_products')}}: <span class="text-primary">{{count($products)}}</span></h3> 
                   <h6 class="text-uppercase font-weight-bold mb-3">{{__('shop.welcome.categories')}}</h6>
-
+                  <form method="GET" action="{{ route('index.filter') }}">
                   @foreach($categories as $category)
                   <div class="mt-2 mb-2 pl-2">
                     <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" id="{{$category->id}}">
-                      <label class="custom-control-label" for="{{$category->id}}">{{$category->name}}</label>
+                      <input type="checkbox" class="form-check-input" name="categories[]" value="{{$category->id}}">
+                       <label for="{{$category->id}}">{{$category->name}}</label>
                     </div>
                   </div>
                   @endforeach
-
-                  <div class="divider mt-5 mb-5 border-bottom border-secondary"></div>
                   
-                  <h6 class="text-uppercase mt-5 mb-3 font-weight-bold">{{__('shop.welcome.price')}}</h6>
-                  <div class="price-filter-control">
-                    <input type="number" class="form-control w-50 pull-left mb-2" value="50" id="price-min-control">
-                    <input type="number" class="form-control w-50 pull-right" value="150" id="price-max-control">
-                  </div>
-                  <input id="ex2" type="text" class="slider " value="50,150" data-slider-min="10" data-slider-max="200" data-slider-step="5" data-slider-value="[50,150]" data-value="50,150" style="display: none;">
-                  <div class="divider mt-5 mb-5 border-bottom border-secondary"></div>
-                  <a href="#" class="btn btn-lg btn-block btn-primary mt-5">{{__('shop.welcome.update_results')}}</a>
+                  <input type="submit" class="btn btn-lg btn-block btn-primary mt-5" value="{{__('shop.welcome.update_results')}}"></input>
+                  </form>
                 </div>
 
               </div>
             </div>
+            
 
 @endsection
