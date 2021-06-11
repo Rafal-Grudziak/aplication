@@ -43,8 +43,12 @@
             @endif
             <form method="POST" action="{{ route('item.add_to_basket') }}" class="form-inline push-bit text-right">
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
-                <input type="number" name="amount" size="10" min="1" value="1" max="{{$product->amount}}" class="form-control @error('amount') is-invalid @enderror">&nbsp; 
+                @if($product->amount>0)
+                <input type="number" name="amount" min="1" value="1" max="{{$product->amount}}" class="form-control @error('amount') is-invalid @enderror">&nbsp; 
                 <button type="submit" class="btn btn-info">{{__('shop.item.add_to_cart')}}</button>
+                @else
+                <h5 class="text-danger">Produkt chwilowo niedostępny</h5>
+                @endif
             </form>
 
         </div>

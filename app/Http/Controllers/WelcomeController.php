@@ -78,7 +78,7 @@ class WelcomeController extends Controller
         $amountSubstraction = Product::where('id', $request['product_id'])->first();
         $amountSubstraction->amount-=$basketProductAmount;
         $amountSubstraction->save();
-        return redirect(route('index'));
+        return redirect(route('item',$request['product_id']));
     }
 
 
