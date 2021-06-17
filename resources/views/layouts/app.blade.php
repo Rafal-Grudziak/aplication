@@ -90,9 +90,8 @@
         </main>
     </div>
     <script src="{{asset ('js/app.js')}}"></script>
-    
+
     @stack('javascript')
     @stack('js-files')
-    
 </body>
 </html>

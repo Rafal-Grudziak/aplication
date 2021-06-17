@@ -5,7 +5,6 @@ use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WelcomeController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,7 +25,6 @@ Route::get('item/{product}', [WelcomeController::class, 'show'])->name('item');
 Route::post('item/', [WelcomeController::class, 'addToBasket'])->name('item.add_to_basket')->middleware('auth');
 Route::get('basket', [WelcomeController::class, 'showBasket'])->name('basket')->middleware('auth');
 Route::delete('basket/{basket}', [WelcomeController::class, 'destroy'])->name('basket.destroy')->middleware('auth');
-Route::get('indexFilter', [WelcomeController::class, 'indexFilter'])->name('index.filter');
 
 Route::get('products', [ProductController::class, 'index'])->name('products.index')->middleware('auth');
 Route::get('/products/create', [ProductController::class, 'create'])->name('products.create')->middleware('auth');

@@ -6,7 +6,8 @@ return[
         'price' => 'cena',
         'update_results' => 'filtruj',
         'sort' => 'Sortuj',
-        'view' => 'Wyświetl'
+        'view' => 'Wyświetl',
+        'filter' => 'Filtruj'
     ],
     'item' => [
         'available_pieces' => 'Dostępnych sztuk',

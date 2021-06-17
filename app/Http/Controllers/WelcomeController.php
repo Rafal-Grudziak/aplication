@@ -10,23 +10,75 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\JsonResponse;
+//use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Exception;
 
-class WelcomeController extends Controller 
+class WelcomeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return View
+     * @param Request  $request
+     * @return View|JsonResponse
      */
-    public function index() : View
+    public function index(Request $request) : View|JsonResponse
     {
+        $filters = $request->query('filter');
+        $paginate = $request->query('paginate') ?? 9;
+        $sort = $request->query('sort') ?? 'D';
+
+        $query = Product::query();
+        $query->paginate($paginate);
+        if(!is_null($filters))
+        {
+            if(array_key_exists('categories', $filters))
+            {
+                $query = $query->whereIn('category_id',$filters['categories']);
+            }
+            if(!is_null($filters['price_min']))
+            {
+                $query = $query->where('price', '>=', $filters['price_min']);
+            }
+            if(!is_null($filters['price_max']))
+            {
+                $query = $query->where('price', '<=', $filters['price_max']);
+            }
+            if($sort == "D")
+            {
+                $query = $query->orderBy('id', 'asc');
+            }
+            if($sort == "NA")
+            {
+                $query = $query->orderBy('name', 'asc');
+            }
+            if($sort == "ND")
+            {
+                $query = $query->orderBy('name', 'desc');
+            }
+            if($sort == "PA")
+            {
+                $query = $query->orderBy('price', 'asc');
+            }
+            if($sort == "PD")
+            {
+                $query = $query->orderBy('price', 'desc');
+            }
+            $resultsCount = $query->count();
+            return response()->json([
+                'data' => $query->get(),
+                'resultsCount' => $resultsCount
+            ]);
+        }
+
         return view('welcome',[
-            'products' => Product::paginate(10),
-            'categories' => ProductCategory::all()
+            'products' => $query->get(),
+            'categories' => ProductCategory::orderBy('name', 'ASC')->get(),
+            'resultsCount' => $query->count(),
+            'defaultImage' => '//d18lp25pnz8h36.cloudfront.net/installations/common/img/image-not-found.png'
         ]);
     }
+
 
     /**
      * Display the specified resource.
@@ -92,7 +144,7 @@ class WelcomeController extends Controller
     public function destroy(Basket $basket) : JsonResponse
     {
         try
-        {   
+        {
             $addProductAmount = Product::where('id', $basket['product_id'])->first();
             $addProductAmount->amount += $basket['amount'];
             $addProductAmount->save();
@@ -112,27 +164,4 @@ class WelcomeController extends Controller
         $basket->delete();
     }
 
-    /**
-     * Display a listing of the resource.
-     * @param  Request  $request
-     * @return View
-     */
-    public function indexFIlter(Request $request) : View
-    {   
-        if(!is_null($request->categories))
-        {
-            return view('welcome',[
-                'products' => Product::whereIn('category_id', $request->categories)->paginate(10),
-                'categories' => ProductCategory::all()
-            ]);
-        }
-        else
-        {
-            return view('welcome',[
-                'products' => Product::paginate(10),
-                'categories' => ProductCategory::all()
-            ]);
-        }
-        
-    }
 }
